@@ -1,106 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Confirm Your Order</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: #fff;
-      margin: 0;
-      padding: 0;
-    }
-    
-    .container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      width: 100%;
-    }
-
-    .card {
-      background-color: #333;
-      padding: 50px;
-      max-width: 500px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    h1, p {
-      text-align: center;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      background-color: #555;
-      color: #fff;
-      margin-bottom: 20px;
-      box-sizing: border-box;
-    }
-
-    input[type="submit"] {
-      background-color: #4CAF50;
-      color: #fff;
-      border: none;
-      padding: 12px 20px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      border-radius: 4px;
-      cursor: pointer;
-      width: 100%;
-    }
-  </style>
+  <title>Payment Gateway API Request - POST</title>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <h1>Enter Your Information, Note: Fill Valid Details Because Your Server Details Will Be Send There.</h1>
-      <form id="infoForm" action="">
-        <label for="email">Valid Email:</label>
-        <input type="text" id="email" name="email" required>
-
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="phone">Phone Number:</label>
-        <input type="text" id="phone" name="phone" required>
-
-        <input type="submit" value="Submit" onclick="getFormData(event)">
-      </form>
-    </div>
-  </div>
-
   <script>
-    function getFormData(e) {
-      e.preventDefault();
-      var email = document.getElementById("email").value;
-      var name = document.getElementById("name").value;
-      var phone = document.getElementById("phone").value;
+    // Function to make the payment gateway API request
+    function makePaymentRequest() {
+      // Payment gateway API endpoint URL
+      var url = 'https://api.paymentgateway.com/payment';
 
-      // Get the amount from the website URL
-      var urlParams = new URLSearchParams(window.location.search);
-      var amount = urlParams.get('amount');
+      // Payment data
+      var paymentData = {
+        email: 'johndoe@example.com',
+        amount: 100, // Example amount in cents
+        currency: 'USD',
+        // Include other required payment details
+      };
 
-      // Construct the button URL using the form and amount data
-      var buttonUrl =
-        "upi://pay?pa=itunknown@ybl&pn=Zaid&cu=INR&tn=Email " +
-        encodeURIComponent(email) +
-        "&am=" +
-        encodeURIComponent(amount);
-      // Redirect user to the button URL
-      window.location.href = buttonUrl;
+      // Create a new XMLHttpRequest object
+      var xhr = new XMLHttpRequest();
+
+      // Configure the request
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+
+      // Handle the response
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText);
+          console.log(response); // Print the response data to the browser console
+          // You can handle the response data here
+        }
+      };
+
+      // Send the request
+      xhr.send(JSON.stringify(paymentData));
     }
   </script>
+
+  <!-- Button to trigger the payment gateway API request -->
+  <button onclick="makePaymentRequest()">Make Payment Request</button>
 </body>
 </html>
