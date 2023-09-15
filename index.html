@@ -8,13 +8,16 @@
     // Function to make the payment gateway API request
     function makePaymentRequest() {
       // Payment gateway API endpoint URL
-      var url = 'https://api.paymentgateway.com/payment';
+      var url = 'https://qropay.com/api/add_order.php';
 
       // Payment data
       var paymentData = {
-        email: 'johndoe@example.com',
-        amount: 100, // Example amount in cents
-        currency: 'USD',
+        key: '3773349693585',
+        order_id: '12345',
+        amount: 2,
+        purpose: 'VPS Plan 1',
+        customer_email: "itzzaid66@gmail.com", // Example amount in cents
+        redirect_url: 'https://google.com',
         // Include other required payment details
       };
 
