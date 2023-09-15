@@ -1,48 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Payment Gateway API Request - POST</title>
-</head>
-<body>
-  <script>
-    // Function to make the payment gateway API request
-    function makePaymentRequest() {
-      // Payment gateway API endpoint URL
-      var url = 'https://qropay.com/api/add_order.php';
-
-      // Payment data
-      var paymentData = {
-        key: '3773349693585',
-        order_id: '12345',
-        amount: 2,
-        purpose: 'VPS Plan 1',
-        customer_email: "itzzaid66@gmail.com", // Example amount in cents
-        redirect_url: 'https://google.com',
-        // Include other required payment details
-      };
-
-      // Create a new XMLHttpRequest object
-      var xhr = new XMLHttpRequest();
-
-      // Configure the request
-      xhr.open('POST', url, true);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-
-      // Handle the response
-      xhr.onload = function() {
-        if (xhr.status === 200) {
-          var response = JSON.parse(xhr.responseText);
-          console.log(response); // Print the response data to the browser console
-          // You can handle the response data here
-        }
-      };
-
-      // Send the request
-      xhr.send(JSON.stringify(paymentData));
+import requests
+url = "https://qropay.com/api/add_order.php"
+data = {
+      "key": "3773349693585",
+      "order_id": "120202",
+      "amount": "2",
+      "purpose": "Product Name",
+      "customer_email": "jondoe@gmail.com",
+      "redirect_url": "http://google.com"
     }
-  </script>
 
-  <!-- Button to trigger the payment gateway API request -->
-  <button onclick="makePaymentRequest()">Make Payment Request</button>
-</body>
-</html>
+x = requests.post(url, json = data)
+print(x.text)
